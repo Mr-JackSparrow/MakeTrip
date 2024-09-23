@@ -1,7 +1,9 @@
-package com.test.tripproject.model.repositories.impls;
+package com.test.tripproject.repositories.impls;
 
-import com.test.tripproject.model.entities.UserRegistrationEntity;
-import com.test.tripproject.model.repositories.UserDao;
+import com.test.tripproject.exceptions.UserNotFoundException;
+import com.test.tripproject.model.dtos.LoginDTO;
+import com.test.tripproject.model.entities.UserEntity;
+import com.test.tripproject.repositories.UserDao;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -22,7 +24,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int insert(UserRegistrationEntity user){
+    public int insert(UserEntity user){
 
         query = "INSERT INTO users(\"firstName\", \"lastName\", \"mobileNo\", \"emailId\", location) VALUES (?, ?, ?, ?, ?)";
 
@@ -44,6 +46,33 @@ public class UserDaoImpl implements UserDao {
 
         }catch(DataAccessException e){
             return 0;
+        }
+    }
+
+
+    @Override
+    public LoginDTO findCredentialsByEmailId(String emailId){
+
+        System.out.println("Before finding");
+        query = "SELECT \"lastName\" FROM users WHERE \"emailId\" = ?";
+
+        try{
+            UserEntity user = jt.queryForObject(query, (res, rowNum) -> new UserEntity(){
+                {
+                    setLastName(res.getString("lastName"));
+                }
+            }, emailId);
+
+
+            System.out.println("Before finding");
+
+            return new LoginDTO(){{
+               setUserName(emailId);
+               setPassword(user.getLastName());
+            }};
+        }catch(DataAccessException e){
+            System.out.println("finding exception");
+            throw new UserNotFoundException();
         }
     }
 }
