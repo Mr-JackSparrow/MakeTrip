@@ -1,8 +1,9 @@
-CREATE TABLE IF NOT EXISTS users(
-    "userId" SMALLSERIAL PRIMARY KEY NOT NULL,
-    "firstName" VARCHAR(50) NOT NULL,
-    "lastName" VARCHAR(50) NOT NULL,
-    "mobileNo" VARCHAR(50) NOT NULL,
-    "emailId" VARCHAR(50) NOT NULL,
-    "location" VARCHAR(50) NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS users(
+--     "userId" SMALLSERIAL PRIMARY KEY NOT NULL,
+--     "firstName" VARCHAR(50) NOT NULL,
+--     "lastName" VARCHAR(50) NOT NULL,
+--     "mobileNo" VARCHAR(50) NOT NULL,
+--     "emailId" VARCHAR(50) NOT NULL,
+--     location VARCHAR(50) NOT NULL,
+--     password VARCHAR(100) NOT NULL
+-- );
