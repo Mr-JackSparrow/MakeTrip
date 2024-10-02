@@ -2,6 +2,7 @@ package com.test.tripproject.model.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Component;
 @Setter
 public class UserEntity {
 
+    private Long userId;
     private String firstName;
     private String lastName;
     private String mobileNo;
     private String emailId;
-    private String location;
+    private String address;
+    private Point location;
     private String password;
 
 }
