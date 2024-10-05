@@ -1,15 +1,15 @@
-package com.test.tripproject.model.entities;
+package com.test.tripproject.model.dtos.responseDTOs.detailsDTOs;
 
+import com.test.tripproject.model.dtos.requestDTOs.RequestCreateUserDTO;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.geo.Point;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class TripEntity {
+public class ResponseTripDetailsDTO {
 
     private Long tripId;
     private Long tripMakerId;
@@ -19,6 +19,7 @@ public class TripEntity {
     private Long maxParticipants;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Point location;
+    private Double longitude;
+    private Double latitude;
 
 }

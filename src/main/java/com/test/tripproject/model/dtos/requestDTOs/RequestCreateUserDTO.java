@@ -1,15 +1,12 @@
-package com.test.tripproject.model.dtos;
+package com.test.tripproject.model.dtos.requestDTOs;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
-@Component
 @Getter
 @Setter
-public class UserDetailsDTO {
+public class RequestCreateUserDTO {
 
-    private Long userId;
     private String firstName;
     private String lastName;
     private String mobileNo;
@@ -18,5 +15,4 @@ public class UserDetailsDTO {
     private Double longitude;
     private Double latitude;
     private String password;
-
 }

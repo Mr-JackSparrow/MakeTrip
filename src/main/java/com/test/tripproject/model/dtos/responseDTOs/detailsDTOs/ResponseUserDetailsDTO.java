@@ -1,8 +1,7 @@
-package com.test.tripproject.model.entities;
+package com.test.tripproject.model.dtos.responseDTOs.detailsDTOs;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -10,7 +9,7 @@ import java.sql.Timestamp;
 @Component
 @Getter
 @Setter
-public class UserEntity {
+public class ResponseUserDetailsDTO {
 
     private Long userId;
     private String firstName;
@@ -20,7 +19,8 @@ public class UserEntity {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String address;
-    private Point location;
+    private Double longitude;
+    private Double latitude;
     private String password;
 
 }

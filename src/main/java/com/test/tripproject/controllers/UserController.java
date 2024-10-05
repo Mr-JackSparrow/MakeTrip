@@ -1,7 +1,8 @@
 package com.test.tripproject.controllers;
 
-import com.test.tripproject.model.dtos.UpdateRequestDTO;
-import com.test.tripproject.model.dtos.UserDTO;
+import com.test.tripproject.model.dtos.requestDTOs.UpdateRequestDTO;
+import com.test.tripproject.model.dtos.responseDTOs.ResponseUserDTO;
+import com.test.tripproject.model.dtos.responseDTOs.detailsDTOs.ResponseUserDetailsDTO;
 import com.test.tripproject.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user/{emailId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{emailId:.+@.+\\..+}", method = RequestMethod.GET)
     public ResponseEntity<Object> findUserByEmail(@PathVariable String emailId){
 
         try{
-            UserDTO user = userService.findUserByEmailId(emailId);
+            ResponseUserDTO user = userService.findUserByEmailId(emailId);
+
+            return ResponseEntity
+                    .ok()
+                    .body(user);
+
+        }catch(Exception e){
+
+            return ResponseEntity
+                    .ok()
+                    .body(
+                            e.getMessage()
+                    );
+        }
+    }
+
+    @RequestMapping(value = "/user/{userId:[0-9]+}", method = RequestMethod.GET)
+    public ResponseEntity<Object> findUserById(@PathVariable int userId){
+
+        try{
+            ResponseUserDetailsDTO user = userService.findUserById(userId);
 
             return ResponseEntity
                     .ok()

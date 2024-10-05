@@ -1,33 +1,31 @@
 package com.test.tripproject.services;
 
-import com.test.tripproject.exceptions.CustomUserException;
-import com.test.tripproject.model.dtos.UserDetailsDTO;
-import com.test.tripproject.repositories.UserDao;
-import com.test.tripproject.repositories.impls.UserDaoImpl;
+import com.test.tripproject.exceptions.CustomException;
+import com.test.tripproject.model.dtos.requestDTOs.RequestCreateUserDTO;
+import com.test.tripproject.repositories.UserDAO;
 import org.springframework.stereotype.Service;
 
-import static com.test.tripproject.services.utils.Converter.convertUserDetailsDtoToEntity;
-import static com.test.tripproject.services.utils.Converter.convertUserDtoToEntity;
+import static com.test.tripproject.services.utils.Converter.convertCreateUserDtoToUserEntity;
 
 @Service
 public class AuthService {
 
 
-    private final UserDao userDao;
+    private final UserDAO userDao;
 
-    public AuthService(UserDaoImpl userDao){
+    public AuthService(UserDAO userDao){
         this.userDao = userDao;
     }
 
-    public int registerUser(UserDetailsDTO user){
+    public int registerUser(RequestCreateUserDTO user){
 
         if(userDao.findUserByEmailId(user.getEmailId()) != null){
-            throw new CustomUserException(String.format("USER WITH : (%s) ALREADY EXISTS IN DATABASE", user.getEmailId()));
+            throw new CustomException(String.format("USER WITH : (%s) ALREADY EXISTS IN DATABASE", user.getEmailId()));
         }else{
-            int userId = userDao.insert(convertUserDetailsDtoToEntity(user));
+            int userId = userDao.insert(convertCreateUserDtoToUserEntity(user));
 
             if(userId <= 0) {
-                throw new CustomUserException(String.format("USER WITH : (%s) WAS NOT UPDATED", user.getEmailId()));
+                throw new CustomException("USER WAS NOT CREATED");
             }else{
                 return userId;
             }

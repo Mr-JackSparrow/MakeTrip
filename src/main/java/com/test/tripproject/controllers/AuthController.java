@@ -1,6 +1,6 @@
 package com.test.tripproject.controllers;
 
-import com.test.tripproject.model.dtos.UserDetailsDTO;
+import com.test.tripproject.model.dtos.requestDTOs.RequestCreateUserDTO;
 import com.test.tripproject.services.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/auth/users/")
+@RequestMapping("/auth/")
 public class AuthController {
 
     private final AuthService authService;
@@ -20,7 +20,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> createUser(@RequestBody UserDetailsDTO user){
+    public ResponseEntity<String> createUser(@RequestBody RequestCreateUserDTO user){
 
         try{
             int userId = authService.registerUser(user);
