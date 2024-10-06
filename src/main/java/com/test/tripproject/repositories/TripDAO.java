@@ -8,6 +8,6 @@ public interface TripDAO {
     int create(TripEntity trip);
     TripEntity readById(Long tripId);
     List<TripEntity> readAll();
-    int update();
-    int delete();
+    int update(TripEntity trip);
+    int delete(Long tripId);
 }

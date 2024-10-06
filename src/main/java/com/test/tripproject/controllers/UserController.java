@@ -62,12 +62,10 @@ public class UserController {
 
         try{
 
-            userService.updateUser(request.getUserDTO(), request.getEmail());
-
             return ResponseEntity
                     .ok()
                     .body(
-                            "USER UPDATED SUCCESSFULLY"
+                            userService.updateUser(request.getUserDTO(), request.getEmail())
                     );
         }catch(Exception e){
 
@@ -83,12 +81,11 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable String emailId){
 
         try{
-            userService.deleteUser(emailId);
 
             return ResponseEntity
                     .ok()
                     .body(
-                            String.format("USER WITH : (%s) DELETED SUCCESSFULLY", emailId)
+                            userService.deleteUser(emailId)
                     );
         }catch(Exception e){
             return ResponseEntity

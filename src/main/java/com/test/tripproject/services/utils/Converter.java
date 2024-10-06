@@ -2,6 +2,7 @@ package com.test.tripproject.services.utils;
 
 import com.test.tripproject.model.dtos.requestDTOs.RequestCreateTripDTO;
 import com.test.tripproject.model.dtos.requestDTOs.RequestCreateUserDTO;
+import com.test.tripproject.model.dtos.requestDTOs.RequestUpdateTripDTO;
 import com.test.tripproject.model.dtos.requestDTOs.RequestUpdateUserDTO;
 import com.test.tripproject.model.entities.TripEntity;
 import com.test.tripproject.model.entities.UserEntity;
@@ -57,6 +58,18 @@ public class Converter {
                 setMaxParticipants(trip.getMaxParticipants());
                 setLocation(location);
 
+            }
+        };
+    }
+
+    public static TripEntity convertUpdateTripDtoToTripEntity(RequestUpdateTripDTO trip){
+        return new TripEntity(){
+            {
+                setTripId(trip.getTripId());
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+getTripId());
+                setStartDate(trip.getStartDate());
+                setEndDate(trip.getEndDate());
+                setMaxParticipants(trip.getMaxParticipants());
             }
         };
     }

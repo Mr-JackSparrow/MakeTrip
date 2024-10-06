@@ -3,12 +3,15 @@ package com.test.tripproject.services;
 import com.test.tripproject.exceptions.CustomException;
 import com.test.tripproject.model.dtos.requestDTOs.RequestUpdateUserDTO;
 import com.test.tripproject.model.dtos.responseDTOs.ResponseUserDTO;
+import com.test.tripproject.model.dtos.responseDTOs.detailsDTOs.ResponseTripDetailsDTO;
 import com.test.tripproject.model.dtos.responseDTOs.detailsDTOs.ResponseUserDetailsDTO;
 import com.test.tripproject.model.entities.UserEntity;
 import com.test.tripproject.repositories.UserDAO;
 import com.test.tripproject.repositories.impls.UserDAOImpl;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.test.tripproject.services.utils.Converter.convertUpdateUserDtoToUserEntity;
 
@@ -94,5 +97,14 @@ public class UserService {
         }else{
             throw new CustomException("SOMETHING WENT WRONG, CHECK IF DATA IS CORRECT");
         }
+    }
+
+    public List<ResponseTripDetailsDTO> findAllTripsMadeByUser(){
+        return List.of();
+    }
+
+    public ResponseTripDetailsDTO findTripMadeByUserById(Long tripId){
+
+        return new ResponseTripDetailsDTO();
     }
 }

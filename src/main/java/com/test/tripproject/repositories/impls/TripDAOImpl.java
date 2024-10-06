@@ -6,7 +6,6 @@ import com.test.tripproject.repositories.TripDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.geo.Point;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -98,7 +97,6 @@ public class TripDAOImpl implements TripDAO {
                 TripEntity trip = new TripEntity();
 
                 trip.setTripId(res.getLong("tripId"));
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+res.getLong("tripId"));
                 trip.setTripMakerId(res.getLong("tripMakerId"));
                 trip.setTripDestinationDescription(res.getString("tripDestinationDescription"));
                 trip.setStartDate(res.getDate("startDate"));
@@ -117,12 +115,33 @@ public class TripDAOImpl implements TripDAO {
     }
 
     @Override
-    public int update() {
-        return 0;
+    public int update(TripEntity trip) {
+        query = "UPDATE trips SET \"startDate\" = ?, \"endDate\" = ?, \"maxParticipants\" = ? WHERE \"tripId\" = ?";
+
+        try{
+            return jt.update(connection -> {
+               PreparedStatement ps = connection.prepareStatement(query);
+
+               ps.setDate(1, trip.getStartDate());
+               ps.setDate(2, trip.getEndDate());
+               ps.setLong(3, trip.getMaxParticipants());
+               ps.setLong(4, trip.getTripId());
+
+               return ps;
+            });
+        }catch(DataAccessException e){
+            return 0;
+        }
     }
 
     @Override
-    public int delete() {
-        return 0;
+    public int delete(Long tripId) {
+        query = "DELETE FROM trips WHERE \"tripId\" = ?";
+
+        try{
+            return jt.update(query, tripId);
+        }catch(DataAccessException e){
+            return 0;
+        }
     }
 }

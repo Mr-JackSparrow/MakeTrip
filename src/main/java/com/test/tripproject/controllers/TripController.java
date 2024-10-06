@@ -2,6 +2,7 @@ package com.test.tripproject.controllers;
 
 
 import com.test.tripproject.model.dtos.requestDTOs.RequestCreateTripDTO;
+import com.test.tripproject.model.dtos.requestDTOs.RequestUpdateTripDTO;
 import com.test.tripproject.model.dtos.responseDTOs.detailsDTOs.ResponseTripDetailsDTO;
 import com.test.tripproject.services.TripService;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +71,40 @@ public class TripController {
                     .body(
                             null
                     );
+        }
+    }
+
+    @PutMapping("/user/update-trip")
+    public ResponseEntity<String> updateTrip(@RequestBody RequestUpdateTripDTO trip){
+
+        try{
+            String msg = tripService.updateTrip(trip);
+
+            return ResponseEntity
+                    .ok()
+                    .body(msg);
+        }catch(Exception e){
+
+            return ResponseEntity
+                    .ok()
+                    .body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/user/trip/delete/{tripId}")
+    public ResponseEntity<String> deleteTrip(@PathVariable Long tripId){
+
+        try{
+            String msg = tripService.deleteTrip(tripId);
+
+            return ResponseEntity
+                    .ok()
+                    .body(msg);
+        }catch(Exception e){
+
+            return ResponseEntity
+                    .ok()
+                    .body(e.getMessage());
         }
     }
 }

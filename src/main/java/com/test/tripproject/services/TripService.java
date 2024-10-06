@@ -2,6 +2,7 @@ package com.test.tripproject.services;
 
 import com.test.tripproject.exceptions.CustomException;
 import com.test.tripproject.model.dtos.requestDTOs.RequestCreateTripDTO;
+import com.test.tripproject.model.dtos.requestDTOs.RequestUpdateTripDTO;
 import com.test.tripproject.model.dtos.responseDTOs.detailsDTOs.ResponseTripDetailsDTO;
 import com.test.tripproject.model.entities.TripEntity;
 import com.test.tripproject.repositories.TripDAO;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.test.tripproject.services.utils.Converter.convertCreateTripDtoToTripEntity;
+import static com.test.tripproject.services.utils.Converter.convertUpdateTripDtoToTripEntity;
 
 @Service
 public class TripService {
@@ -68,7 +70,6 @@ public class TripService {
                 ResponseTripDetailsDTO trip = new ResponseTripDetailsDTO();
 
                 trip.setTripId(entity.getTripId());
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + entity.getTripId());
                 trip.setTripMakerId(entity.getTripMakerId());
                 trip.setTripDestinationDescription(entity.getTripDestinationDescription());
                 trip.setStartDate(entity.getStartDate());
@@ -89,12 +90,24 @@ public class TripService {
         }
     }
 
-    public List<ResponseTripDetailsDTO> findAllTripsMadeByUser(){
-        return List.of();
+    public String updateTrip(RequestUpdateTripDTO request){
+
+        int rowCount = tripDAO.update(convertUpdateTripDtoToTripEntity(request));
+
+        if(rowCount <= 0){
+            throw new CustomException("TRIP WAS NOT UPDATED");
+        }else
+            return "TRIP GOT UPDATED SUCCESSFULLY";
     }
 
-    public ResponseTripDetailsDTO findTripMadeByUserById(Long tripId){
+    public String deleteTrip(Long tripId){
+        int rowCount = tripDAO.delete(tripId);
 
-        return new ResponseTripDetailsDTO();
+        if(rowCount <= 0){
+            throw new CustomException("TRIP NOT DELETED");
+        }else{
+            return String.format("TRIP WITH ID : %s DELETED SUCCESSFULLY", tripId);
+        }
     }
+
 }
